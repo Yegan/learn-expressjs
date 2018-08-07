@@ -26,6 +26,7 @@
 
             <div class="six columns">
               <h5>Bill type</h5>
+              <!-- Radio Buttons, values are being recalled from Settings -->
               <form class="" action="action" method="post">
                 <label class="">
                   <input type="radio" name="billType" class="billItemTypeWithSettings" value='call'>
@@ -39,43 +40,51 @@
               </form>
 
               <h5>Totals</h5>
+              <!-- Total, values of call and sms being added to get a total -->
                   <table>
                     <tr>
                       <td>
                         <a href="/actions/calls">Call total</a>
                       </td>
-                      <td>R<span class="callTotalSettings">{{callTotal}}</span> </td>
+                      <td>R<span class="callTotalSettings" action='action'>{{billCallTotal}}</span> </td>
                     </tr>
                     <tr>
                       <td>
                         <a href="/actions/sms">SMS total</a>
                       </td>
-                      <td>R<span class="smsTotalSettings">{{smsTotal}}</span> </td>
+                      <td>R<span class="smsTotalSettings" action='action'>{{billSMSTotal}}</span> </td>
                     </tr>
                     <tr>
                       <td>
                         <a href="/actions">Total</a>
                       </td>
-                      <td> R<span class="totalSettings">{{total}}</span> </td>
+                      <td> R<span class="totalSettings" action='action'>{{billTotalTotal}}</span> </td>
                     </tr>
                   </table>
 
             </div>
-            <div class="six columns">
+             <div class="row">
+            <div class="five columns">
+             
               <h5>Settings</h5>
-              <form class="" action="settings" method="post">
+              <form class="" action="/settings" method="post">
 
                 <label for="exampleEmailInput">Call cost</label>
-                <input class="u-full-width callCostSetting" name="callCost" type="number" placeholder="eg. 2.55">
+                <input class="u-full-width callCostSetting" name="callCost" type="number" step=".01" placeholder="eg. 2.55" value="{{currentValueOfCall}}">
                 <label for="exampleEmailInput">SMS cost</label>
-                <input class="u-full-width smsCostSetting" name="smsCost" type="number" placeholder="eg. 0.65" >
+                <input class="u-full-width smsCostSetting" name="smsCost" type="number" step=".01"  placeholder="eg. 0.65" value="{{currentValueOfSMS}}" >
                 <label for="">Warning level</label>
-                <input class="u-full-width warningLevelSetting " name="warningLevel" type="number" placeholder="eg. 30.00" class="warningLevel" >
+                <input class="u-full-width warningLevelSetting " name="warningLevel" type="number" step=".01" placeholder="eg. 30.00" class="warningLevel" value="{{costWarning}}" >
                 <label for="">Critical level</label>
-                <input class="u-full-width criticalLevelSetting" name="criticalLevel" type="number" placeholder="eg. 65.00" >
+                <input class="u-full-width criticalLevelSetting" name="criticalLevel" type="number" step=".01" placeholder="eg. 65.00" value="{{costCritical}}" >
                 <button class="button-primary updateSettings" type="submit" name="button">Update settings</button>
+                
               </form>
-
+              </div>
+                  <form class="five columns" method="POST" action="/clear"><button class="button-primary updateSettings" type="submit" name="reset">Reset button</button> </form>
+             
+              
+              </div>
             </div>
           </div>
         </div>

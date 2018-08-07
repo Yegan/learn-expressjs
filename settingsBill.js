@@ -1,78 +1,80 @@
-module.exports =function (){
+module.exports = function () {
+  let billCallTotal = 0
+  let billSMSTotal = 0
+  let billTotalTotal = 0
 
-  var billCallTotal = 0;
-  var billSmsTotal = 0;
-  var billTotalTotal = 0;
+  let currentValueOfSMS = 0
+  let currentValueOfCall = 0
+  let costWarning = 0
+  let costCritical = 0
 
-  var costSettingSMS = 0;
-  var costSettingCall = 0;
-  var costOfWarning = 0;
-  var costOfCritical = 0;
-
-  //function for Settings
-  function costOfCall(callCost) {
-    costSettingCall = parseFloat(callCost);
+  //  function for Settings
+  function costOfCall (CurrentCallPrice) {
+    currentValueOfCall = parseFloat(CurrentCallPrice)
   }
 
-  function costCall(){
-    return billCallTotal;
+  function costOfSMS (currentSMSPrice) {
+    currentValueOfSMS = parseFloat(currentSMSPrice)
   }
 
-  function costOfSMS(smsCost){
-    costSettingSMS = parseFloat(smsCost);
+  function costOfWarning (warningCosts) {
+    costWarning = parseFloat(warningCosts)
   }
 
-  function costSMS(){
-    return billSmsTotal;
+  function costOfCritical (criticalCosts) {
+    costCritical = parseFloat(criticalCosts)
   }
 
-  function costWarning(warningCosts){
-    costOfWarning = parseFloat(warningCosts)
-  }
+  // function for triggering warning and critical level
 
-  function warningCost(){
-    return costOfWarning
-  }
+  // function levels () {
+  // if()
+  // }
 
-  function costCritical(criticalCosts){
-    costOfCritical = parseFloat(criticalCosts);
-  }
-  function criticalCost(){
-    return costOfCritical;
-  }
+  //  function for calculating the bill
+  function calculateBill (checkedRadioButton) {
+    var radioTotal = checkedRadioButton
 
-  function totalCS(){
+    if (radioTotal === 'call') {
+      billCallTotal += currentValueOfCall
+    } else if (radioTotal === 'sms') {
+      billSMSTotal += currentValueOfSMS
+    }
+    billTotalTotal = billSMSTotal + billCallTotal
     return billTotalTotal
   }
 
-
-
-
-  //function for Bill Total
-  function calculateBill(checkedRadioButton) {
-  var radioTotal = checkedRadioButton
-
-  if (radioTotal === 'call') {
-    billCallTotal += costSettingCall;
-  } else if (radioTotal === 'sms') {
-    billSmsTotal += costSettingSMS;
-  }
-  billTotalTotal = billSmsTotal + billCallTotal;
-  return billTotalTotal;
-
-}
-
-    return{
-      costOfCall,
-      costCall,
-      costOfSMS,
-      costSMS,
-      calculateBill,
+  // function that returns values
+  function returnOftotals () {
+    return {
+      billCallTotal,
+      billSMSTotal,
+      billTotalTotal,
+      currentValueOfCall,
+      currentValueOfSMS,
       costWarning,
-      warningCost,
-      costCritical,
-      criticalCost,
-      totalCS
+      costCritical
     }
+  }
 
+  function reset () {
+    billCallTotal = 0
+    billSMSTotal = 0
+    billTotalTotal = 0
+    currentValueOfSMS = 0
+    currentValueOfCall = 0
+    costWarning = 0
+    costCritical = 0
+  }
+
+  return {
+    costOfCall,
+    costOfSMS,
+    costOfWarning,
+    costOfCritical,
+    returnOftotals,
+    calculateBill,
+    reset
+    // levels
+  }
 }
