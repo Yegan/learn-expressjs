@@ -27,9 +27,17 @@ module.exports = function () {
 
   // function for triggering warning and critical level
 
-  // function levels () {
-  // if()
-  // }
+  function levels () {
+    if (billTotalTotal >= costCritical) {
+      return 'danger'
+    }
+    if (billTotalTotal >= costWarning) {
+      return 'warning'
+    }
+    else {
+      return
+    }
+  }
 
   //  function for calculating the bill
   function calculateBill (checkedRadioButton) {
@@ -53,7 +61,8 @@ module.exports = function () {
       currentValueOfCall,
       currentValueOfSMS,
       costWarning,
-      costCritical
+      costCritical,
+      levels
     }
   }
 
@@ -74,7 +83,8 @@ module.exports = function () {
     costOfCritical,
     returnOftotals,
     calculateBill,
-    reset
-    // levels
+    reset,
+    levels
+
   }
 }

@@ -52,6 +52,10 @@ app.post('/clear', function (req, res) {
   res.redirect('/')
 })
 
+app.get('/actions', function (req, res) {
+  res.render('display')
+})
+
 let PORT = process.env.PORT || 3007
 
 app.listen(PORT, function () {
