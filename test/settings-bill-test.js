@@ -26,3 +26,29 @@ describe('Settings bill Function', function () {
     ])
   })
 })
+
+describe ('The function Settings Bill', function() {
+  it ("'The function should take in a call or sms value and tally this total accordingly", function() {
+ var factorySettings = SettingsBillFactory()
+    factorySettings.costOfCall(5)
+    factorySettings.costOfSMS(2)
+    factorySettings.costOfWarning(10)
+    factorySettings.costOfCritical(15)
+    factorySettings.calculateBill('call')
+
+   let  callTotal = factorySettings.returnOftotals()
+      assert.equal(callTotal.billCallTotal, 5)
+  });
+
+  it("'The function is testing the cost of a call and checking the total bill", function() {
+    var factorySettings = SettingsBillFactory()
+    factorySettings.costOfSMS(10)
+    factorySettings.costOfWarning(20)
+    factorySettings.costOfCritical(30)
+    factorySettings.calculateBill('sms')
+
+    let  SMSTotal = factorySettings.returnOftotals()
+
+    assert.equal(SMSTotal.billSMSTotal,10)
+})
+})
