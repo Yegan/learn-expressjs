@@ -1,5 +1,5 @@
 
-<form action="/action/:type" method="get">
+
 <div class="container">
         <div class="row">
         <div class="twelve columns box">
@@ -10,22 +10,24 @@
           </div>
           <div class="">
             <i>If the total cost exceed the warning level show the total cost in orange, if it exceeds the critical level show it in red and prevent any new costs from being added. The  warning and critical level should both be configurable now.</i>
-          </div>
+           </div>
          
 
-<table>
-  <tr>
-    <td>type:</td>
-    <td>{{type}}</td>
-  </tr>
-  <tr>
-    <td>price:</td>
-    <td>{{price}}</td>
-  </tr>
-  <tr>
-    <td>date:</td>
-    <td>{{date}}</td>
-  </tr>
-</table>
 
- </form>
+<table>
+  
+    <th>Type:</th>
+    <th>Price:</th>
+    <th>Date:</th>
+    {{#each actions}}
+    <tr>
+      <td>{{type}}</td>
+      <td>{{cost}}</td>
+      <td>{{timeStamp}}</td>
+    </tr>
+    {{/each}}
+ </table>
+
+    </div>
+  </div>
+</div>

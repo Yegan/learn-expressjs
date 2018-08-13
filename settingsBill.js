@@ -8,6 +8,8 @@ module.exports = function () {
   let costWarning = 0
   let costCritical = 0
 
+  let actionList = []
+
   //  function for Settings
   function costOfCall (CurrentCallPrice) {
     currentValueOfCall = parseFloat(CurrentCallPrice)
@@ -28,28 +30,57 @@ module.exports = function () {
   // function for triggering warning and critical level
 
   function levels () {
+    if (billTotalTotal >= costWarning && billTotalTotal < costCritical) {
+      return 'warning'
+    }
     if (billTotalTotal >= costCritical) {
       return 'danger'
     }
-    if (billTotalTotal >= costWarning) {
-      return 'warning'
+  }
+  // define a function to get action list
+  let getActionList = function () {
+    return actionList
+  }
+  // function that filters list according to type
+
+  function filter (type) {
+    const filteredType = []
+    for (let i = 0; i < actionList.length; i++) {
+      const action = actionList[i]
+      if (action.type === type) {
+        filteredType.push(action)
+      }
     }
-    else {
-      return
-    }
+    return filteredType
   }
 
   //  function for calculating the bill
   function calculateBill (checkedRadioButton) {
     var radioTotal = checkedRadioButton
+    if (radioTotal !== undefined || radioTotal === '') {
+      if (billTotalTotal < costCritical) {
+        var billList = {
+          type: checkedRadioButton,
+          timeStamp: new Date()
+        }
+       
+        if (radioTotal === 'call') {
+          billCallTotal += currentValueOfCall
+          billList.cost = currentValueOfCall
+        } else if (radioTotal === 'sms') {
+          billList.cost = currentValueOfSMS
+          billSMSTotal += currentValueOfSMS
+        }
+        if (actionList !== '') {
+          billTotalTotal = billSMSTotal + billCallTotal
+          actionList.push(billList)
 
-    if (radioTotal === 'call') {
-      billCallTotal += currentValueOfCall
-    } else if (radioTotal === 'sms') {
-      billSMSTotal += currentValueOfSMS
+          return billTotalTotal
+        }
+        actionList.push(billList)
+
+      }
     }
-    billTotalTotal = billSMSTotal + billCallTotal
-    return billTotalTotal
   }
 
   // function that returns values
@@ -63,6 +94,7 @@ module.exports = function () {
       costWarning,
       costCritical,
       levels
+
     }
   }
 
@@ -74,6 +106,7 @@ module.exports = function () {
     currentValueOfCall = 0
     costWarning = 0
     costCritical = 0
+    actionList = []
   }
 
   return {
@@ -84,7 +117,9 @@ module.exports = function () {
     returnOftotals,
     calculateBill,
     reset,
-    levels
+    levels,
+    getActionList,
+    filter
 
   }
 }

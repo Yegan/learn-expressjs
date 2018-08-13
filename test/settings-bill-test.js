@@ -73,20 +73,38 @@ describe('The function Settings Bill', function(){
 
 describe('Settings bill Function', function(){
 
-  it('Should return warning', function(){
-    var factorySettings = SettingsBillFactory();
-    factorySettings.costOfCall(4)
+  // it('Should return warning', function(){
+  //   var factorySettings = SettingsBillFactory();
+  //   factorySettings.costOfCall(4)
 
-    factorySettings.costOfWarning(7)
-    factorySettings.costOfCritical(10)
+  //   factorySettings.costOfWarning(7)
+  //   factorySettings.costOfCritical(10)
 
 
-    factorySettings.calculateBill('call')
-    factorySettings.calculateBill('call')
-    factorySettings.calculateBill('call')
+  //   factorySettings.calculateBill('call')
+  //   factorySettings.calculateBill('call')
+  //   factorySettings.calculateBill('call')
   
-      assert.equal(factorySettings.levels(),'critical' )
+  //     assert.equal(factorySettings.levels(),'critical' )
 
-  })
+  // })
+
+  it('should return billList', function() {
+    var settings = SettingsBillFactory()
+
+    settings.costOfCall(4)
+    settings.calculateBill('call')
+
+    assert.deepEqual(settings.getActionList(), [
+
+      {
+        cost: 4,
+        timeStamp: "",
+        type: 'call'
+
+      },
+
+    ]);
+  });
   
 })

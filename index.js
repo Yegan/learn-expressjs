@@ -4,10 +4,19 @@ let exphbs = require('express-handlebars')
 let bodyParser = require('body-parser')
 let factory = require('./settingsBill')
 let facFunc = factory()
+let moment = require('moment')
 
 app.engine('handlebars', exphbs({
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+
+  helpers: {
+    'timeStamp':
+    function () {
+      return moment(this.timeStamp).fromNow()
+    }
+  }
 }))
+
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
@@ -53,7 +62,20 @@ app.post('/clear', function (req, res) {
 })
 
 app.get('/actions', function (req, res) {
-  res.render('display')
+  let actions = facFunc.getActionList()
+  res.render('display', {actions})
+})
+
+app.get('/actions/:type', function (req, res) {
+  let typeOr = req.params.type
+  if (typeOr === 'call' || typeOr === 'sms') {
+    let filterFunc = facFunc.filter(typeOr)
+    res.render('display', {actions: filterFunc})
+  }
+  else {
+    res.render('display', {actions: facFunc.getActionList()})
+
+  }
 })
 
 let PORT = process.env.PORT || 3007
