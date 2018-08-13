@@ -1,3 +1,4 @@
+let moment = require('moment')
 module.exports = function () {
   let billCallTotal = 0
   let billSMSTotal = 0
@@ -57,11 +58,13 @@ module.exports = function () {
   //  function for calculating the bill
   function calculateBill (checkedRadioButton) {
     var radioTotal = checkedRadioButton
+    let date = moment( new Date()).fromNow()
     if (radioTotal !== undefined || radioTotal === '') {
       if (billTotalTotal < costCritical) {
         var billList = {
           type: checkedRadioButton,
-          timeStamp: new Date()
+          timeStamp: date
+        }
         }
        
         if (radioTotal === 'call') {
@@ -81,7 +84,7 @@ module.exports = function () {
 
       }
     }
-  }
+  
 
   // function that returns values
   function returnOftotals () {

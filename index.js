@@ -4,17 +4,17 @@ let exphbs = require('express-handlebars')
 let bodyParser = require('body-parser')
 let factory = require('./settingsBill')
 let facFunc = factory()
-let moment = require('moment')
+//let moment = require('moment')
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
 
-  helpers: {
-    'timeStamp':
-    function () {
-      return moment(this.timeStamp).fromNow()
-    }
-  }
+  // helpers: {
+  //   'timeStamp':
+  //   function () {
+  //     return moment(this.timeStamp).fromNow()
+  //   }
+  // }
 }))
 
 app.set('view engine', 'handlebars')
